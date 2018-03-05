@@ -44,7 +44,12 @@ fi
 NGINX_CONF_DIR=/etc/nginx
 
 function print_usage() {
-    echo "$SCRIPTNAME [-c <nginx configuration base directory> default: /etc/nginx] [ -s <startup program name> default: service nginx reload] <site name>"
+  echo "$SCRIPTNAME [-c <nginx configuration base directory> default: /etc/nginx] [ -s <startup program name> default: service nginx reload] <site name>"
+  echo -e "available sites:"'\033[1;30m'
+  ls $NGINX_CONF_DIR/sites-available/* | xargs -n1 basename
+  echo -e '\033[0m'"enabled   sites:"'\033[0;32m'
+  ls $NGINX_CONF_DIR/sites-enabled/* | xargs -n1 basename
+  echo -e '\033[0m'
 }
 
 ## Extract the startup program name from a given argument. If it's a
